@@ -1,0 +1,475 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<div class="container-fluid">
+	<!-- General Section start Here -->
+	<div class="general-dashboard">
+	    <div class="white-section">
+	        <div class="row">
+	            <h1>Growth</h1>
+	            <div class="growth-section col-lg-12 col-md-12 col-sm-12">
+	            <div class="row">
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Speed</h3>
+	                        <p>Choose the speed at which you would like to follow or perform growth likes.</p>
+	                        <h5>Extreme</h5>
+	                        <div class="slidecontainer">
+	                          <input type="range" min="1" max="100" value="{{getSetting.speed}}" class="speed_slider slider" id="myRange">
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Follow Limit</h3>
+	                        <p>Automatically switch to unfollow when your account is following this many accounts.<br/>
+	                            <i>(follow only)</i>
+	                        </p>
+	                        <h5>&nbsp</h5>
+	                        <div class="card-input dropdown">
+	                        	<select class="dropdown-menu form-control" aria-labelledby="follow-limit" style="display: block;" id="follow_limit"><span class="caret"></span>
+	                          	<option {% if getSetting.follow_limit == '2000'  %} selected {% endif %}>2000</option>
+	                          	<option {% if getSetting.follow_limit == '2500'  %} selected {% endif %}>2500</option>
+	                          	<option {% if getSetting.follow_limit == '3000'  %} selected {% endif %}>3000</option>
+	                          	<option {% if getSetting.follow_limit == '4000'  %} selected {% endif %}>4000</option>
+	                          	<option {% if getSetting.follow_limit == '5000'  %} selected {% endif %}>5000</option>
+	                          	<option {% if getSetting.follow_limit == '6000'  %} selected {% endif %}>6000</option>
+	                          	<option {% if getSetting.follow_limit == '7000'  %} selected {% endif %}>7000</option>
+	                          </select>
+	                          <!-- <button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                            <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">6000 <span class="caret"></span></div>
+	                          <div class="loading ng-binding ng-hide" ng-show="ctrl.loading" aria-hidden="true" style=""><i class="fa fa-spin fa-refresh"></i> Loading...</div>
+	                          </button>-->
+
+	                          <!-- <ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                            <li ng-click="ctrl.changeSetting(2000)" role="button" tabindex="0">2000</li>
+	                            <li ng-click="ctrl.changeSetting(2500)" role="button" tabindex="0">2500</li>
+	                            <li ng-click="ctrl.changeSetting(3000)" role="button" tabindex="0">3000</li>
+	                            <li ng-click="ctrl.changeSetting(4000)" role="button" tabindex="0">4000</li>
+	                            <li ng-click="ctrl.changeSetting(5000)" role="button" tabindex="0">5000</li>
+	                            <li ng-click="ctrl.changeSetting(6000)" role="button" tabindex="0">6000</li>
+	                            <li ng-click="ctrl.changeSetting(7000)" role="button" tabindex="0">7000</li>
+	                          </ul> -->
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Follow Private Accounts</h3>
+	                        <p>Do you want to send a follow request to private accounts?<br/><i>(follow only)</i></p>
+	                        <h5>&nbsp</h5>
+	                        <div class="card-input">
+	                          <div class="btn-group btn-group-justified follow-buttons" role="group" aria-label="">
+	                              <button type="button" value="2" id="fpa2" class="Follow_Private_Accounts btn btn-default ng-binding {% if getSetting.follow_private_accounts == '2'  %} active {% endif %}">No</button>
+	                              <button type="button" value="1" id="fpa1" class="Follow_Private_Accounts btn btn-default ng-binding {% if getSetting.follow_private_accounts == '1'  %} active {% endif %}">Yes</button></div>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Has Profile Picture</h3>
+	                        <p>Do you only want to interact with accounts that have a profile picture?</p>
+	                        <h5>&nbsp</h5>
+	                        <div class="card-input">
+	                          <div class="btn-group btn-group-justified follow-buttons" role="group" aria-label="">
+	                              <button type="button" id="hpp2" value="2" class="has_profile_pic btn btn-default ng-binding {% if getSetting.has_profile_pictures == '2'  %} active {% endif %}">No</button>
+	                              <button type="button" id="hpp1" value="1" class="has_profile_pic btn btn-default ng-binding {% if getSetting.has_profile_pictures == '1'  %} active {% endif %}">Yes</button></div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Only Business Accounts</h3>
+	                        <p>Do you only want to interact with business accounts?</p>
+	                        <h5>&nbsp</h5>
+	                        <div class="card-input">
+	                          <div class="btn-group btn-group-justified follow-buttons" role="group" aria-label="">
+	                              <button type="button" value="2" id="oba2" class="only_bussiness_account btn btn-default ng-binding {% if getSetting.only_bussiness_accounts == '2'  %} active {% endif %}">No</button>
+	                              <button type="button" value="1" id="oba1" class="only_bussiness_account btn btn-default ng-binding {% if getSetting.only_bussiness_accounts == '1'  %} active {% endif %}">Yes</button></div>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Post Limits<span class="gender-adv-label setting-label ng-binding">ADV</span></h3>
+	                        <p>Limit how many posts an account can have for you to interact with them.</p>
+	                        <div class="card-input card-input-min-max">
+	                          <div id="min-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Min Posts :</span>
+	                              <input type="number" class="posts_limit_min ng-valid ng-valid-min ng-not-empty ng-dirty ng-valid-number ng-touched" value="{{getSetting.min_post_limits}}">
+	                          </div>
+	                          <div id="max-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Max Posts :</span>
+	                              <input type="number" class="posts_limit_max ng-pristine ng-valid ng-empty ng-valid-min ng-touched" value="{{getSetting.max_post_limits}}">
+	                          </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Following Limits<span class="gender-adv-label setting-label ng-binding">ADV</span></h3>
+	                        <p>Limit how many people an account is following for you to interact with them.</p>
+	                        <div class="card-input card-input-min-max">
+	                          <div id="min-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Min Following :</span>
+	                              <input type="number" class="following_limit_min ng-valid ng-valid-min ng-not-empty ng-dirty ng-valid-number ng-touched" value="{{getSetting.min_following_limits}}">
+	                          </div>
+	                          <div id="max-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Max Following :</span>
+	                              <input type="number" class="following_limit_max ng-pristine ng-valid ng-empty ng-valid-min ng-touched" value="{{getSetting.max_following_limits}}">
+	                          </div>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                    <div class="general-dashboard-boxes">
+	                        <h3>Follower Limits<span class="gender-adv-label setting-label ng-binding">ADV</span></h3>
+	                        <p>Limit how many followers an account can have for you to interact with them.</p>
+	                        <div class="card-input card-input-min-max">
+	                          <div id="min-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Min Followers :</span>
+	                              <input type="number" class="min_follower_limit ng-valid ng-valid-min ng-not-empty ng-dirty ng-valid-number ng-touched" value="{{getSetting.min_follower_limits}}">
+	                          </div>
+	                          <div id="max-posts" class="number-input-container ng-scope">
+	                              <span class="ng-binding">Max Followers :  </span>
+	                              <input type="number" class="max_follower_limit ng-pristine ng-valid ng-empty ng-valid-min ng-touched" value="{{getSetting.max_follower_limits}}">
+	                          </div>
+	                        </div>
+	                    </div>
+	                </div>
+
+	            </div>
+	        </div>
+	                    </div>
+
+	        <!--- Sleep Section Start Here ------>
+	        <div class="row">
+	            <div class="sleep-section col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                <div class="row">
+	                    <h1 class="col-lg-12">Unfollow</h1>
+	                </div>
+	                <div class="row">
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Speed</h3>
+	                            <p>Choose the speed at which you would like to unfollow.</p>
+	                            <h5>Turbo</h5>
+	                            <div class="slidecontainer">
+	                              <input type="range" min="1" max="100" value="{{getSetting.unfollow_speed}}" class="unfollow_slider slider" id="myRange2">
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Limit</h3>
+	                            <p>Automatically switch to follow when your account is following this many accounts.<br/>
+	                                <i>&nbsp</i>
+	                            </p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input dropdown">
+	                              <!---<button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                                <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">Whitelist <span class="caret"></span></div>
+	                              <div class="loading ng-binding ng-hide" ng-show="ctrl.loading" aria-hidden="true" style=""><i class="fa fa-spin fa-refresh"></i> Loading...</div>
+	                              </button> --->
+									<select class="form-control unfollow_limit">
+										<option {% if getSetting.unfollow_limit == 'Anyone'  %} selected {% endif %}>Anyone</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 100'  %} selected {% endif %}>Whitelist + 100</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 200'  %} selected {% endif %}>Whitelist + 200</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 300'  %} selected {% endif %}>Whitelist + 300</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 400'  %} selected {% endif %}>Whitelist + 400</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 500'  %} selected {% endif %}>Whitelist + 500</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 600'  %} selected {% endif %}>Whitelist + 600</option>
+										<option {% if getSetting.unfollow_limit == 'Whitelist + 700'  %} selected {% endif %}>Whitelist + 700</option>
+									</select>
+	                              <!--<ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                                <li ng-click="ctrl.changeSetting(100)" class="ng-binding" role="button" tabindex="0">Whitelist + 100</li>
+	                                <li ng-click="ctrl.changeSetting(200)" class="ng-binding" role="button" tabindex="0">Whitelist + 200</li>
+	                                <li ng-click="ctrl.changeSetting(300)" class="ng-binding" role="button" tabindex="0">Whitelist + 300</li>
+	                                <li ng-click="ctrl.changeSetting(400)" class="ng-binding" role="button" tabindex="0">Whitelist + 400</li>
+	                                <li ng-click="ctrl.changeSetting(500)" class="ng-binding" role="button" tabindex="0">Whitelist + 500</li>
+	                                <li ng-click="ctrl.changeSetting(600)" class="ng-binding" role="button" tabindex="0">Whitelist + 600</li>
+	                                <li ng-click="ctrl.changeSetting(700)" class="ng-binding" role="button" tabindex="0">Whitelist + 700</li>
+	                              </ul>-->
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                         <div class="general-dashboard-boxes">
+	                            <h3>Source</h3>
+	                            <p>Who should Stim be allowed to unfollow?<br/><i>&nbsp</i></p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input dropdown">
+	                              <!--<button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                                <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">People Stim Followed <span class="caret"></span></div>
+	                                </button>
+	                              <ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                                  <li ng-click="ctrl.changeSetting('all')" class="ng-binding" role="button" tabindex="0">Anyone</li>
+	                                    <li ng-click="ctrl.changeSetting('system')" class="ng-binding" role="button" tabindex="0">People Stim Followed</li>
+	                              </ul>-->
+									<select class="form-control unfollow_source">
+										<option value="Anyone" {% if getSetting.unfollow_source == 'Anyone'  %} selected {% endif %} value="Anyone">Anyone</option>
+										<option value="People Stim Followed" {% if getSetting.unfollow_source == 'People Stim Followed'  %} selected {% endif %} value="People Stim Followed">People Stim Followed</option>
+									</select>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        <!--- Sleep Section End Here ------>
+
+	         <!--- Engagement Section Start Here ------>
+	            <div class="engagement-section col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                <div class="row">
+	                    <h1 class="col-md-12">Engagement</h1>
+	                </div>
+	                <div class="row">
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Speed <span class="gender-new-label setting-label ng-binding">New</span></h3>
+	                            <p>Choose the speed at which you would like to perform engagement likes.</p>
+	                            <h5>Extreme</h5>
+	                            <div class="slidecontainer">
+	                              <input type="range" min="1" max="100" value="{{getSetting.engagement_speed}}" class="engagement_slider slider" id="myRange3">
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Source <span class="gender-new-label setting-label ng-binding">New</span></h3>
+	                            <p>Who should Stim be allowed to engage with?<br/>
+	                                <i>&nbsp</i>
+	                            </p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input dropdown">
+	                              <!---<button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                                <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">Anyone <span class="caret"></span></div>
+	                              <div class="loading ng-binding ng-hide" ng-show="ctrl.loading" aria-hidden="true" style=""><i class="fa fa-spin fa-refresh"></i> Loading...</div>
+	                              </button>
+	                              <ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                                <li ng-click="ctrl.changeSetting(100)" class="ng-binding" role="button" tabindex="0">Whitelist + 100</li>
+	                                <li ng-click="ctrl.changeSetting(200)" class="ng-binding" role="button" tabindex="0">Whitelist + 200</li>
+	                                <li ng-click="ctrl.changeSetting(300)" class="ng-binding" role="button" tabindex="0">Whitelist + 300</li>
+	                                <li ng-click="ctrl.changeSetting(400)" class="ng-binding" role="button" tabindex="0">Whitelist + 400</li>
+	                                <li ng-click="ctrl.changeSetting(500)" class="ng-binding" role="button" tabindex="0">Whitelist + 500</li>
+	                                <li ng-click="ctrl.changeSetting(600)" class="ng-binding" role="button" tabindex="0">Whitelist + 600</li>
+	                                <li ng-click="ctrl.changeSetting(700)" class="ng-binding" role="button" tabindex="0">Whitelist + 700</li>
+	                              </ul>--->
+									<select class="form-control engagement_source">
+										<option {% if getSetting.engagement_source == 'Anyone'  %} selected {% endif %}>Anyone</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 100'  %} selected {% endif %}>Whitelist + 100</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 200'  %} selected {% endif %}>Whitelist + 200</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 300'  %} selected {% endif %}>Whitelist + 300</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 400'  %} selected {% endif %}>Whitelist + 400</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 500'  %} selected {% endif %}>Whitelist + 500</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 600'  %} selected {% endif %}>Whitelist + 600</option>
+										<option {% if getSetting.engagement_source == 'Whitelist + 700'  %} selected {% endif %}>Whitelist + 700</option>
+									</select>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Like Limits</h3>
+	                            <p>Limit how many likes a post can have for you to interact with it.</p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input">
+	                              <div id="min-posts" class="number-input-container ng-scope">
+	                                  <span class="ng-binding">Min Likes :</span>
+	                                  <input type="number" value="{{getSetting.engagement_min_like_limits}}" class="source_like_limit_min ng-valid ng-valid-min ng-not-empty ng-dirty ng-valid-number ng-touched">
+	                              </div>
+	                              <div id="max-posts" class="number-input-container ng-scope">
+	                                  <span class="ng-binding">Max Likes :</span>
+	                                  <input type="number" value="{{getSetting.engagement_max_like_limits}}" class="source_like_limit_max ng-pristine ng-valid ng-empty ng-valid-min ng-touched">
+	                              </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!--- Engagement Section End Here ------>
+
+	        <!--- Sleep Section Start Here ------>
+	        <div class="row">
+	            <div class="sleep-section">
+	                <h1>Sleep</h1>
+	                <div class="row">
+	                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Only Business Accounts</h3>
+	                            <p>Do you only want to interact with business accounts?<br/><i>&nbsp</i></p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input">
+	                              <div class="btn-group btn-group-justified follow-buttons" role="group" aria-label="">
+	                                  <button type="button" id="sleepbtn2" value="2" class="sleep_btn1 btn btn-default ng-binding {% if getSetting.sleep_only_business_accounts == '2'  %} active {% endif %}">No</button>
+	                                  <button type="button" id="sleepbtn1" value="1" class="sleep_btn1 btn btn-default ng-binding {% if getSetting.sleep_only_business_accounts == '1'  %} active {% endif %}">Yes</button></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Start Time</h3>
+	                            <p>When do you want to start your account resting?<br/>
+	                                <i>&nbsp</i>
+	                            </p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input dropdown">
+	                              <!---<button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                                <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">10PM <span class="caret"></span></div>
+	                              <div class="loading ng-binding ng-hide" ng-show="ctrl.loading" aria-hidden="true" style=""><i class="fa fa-spin fa-refresh"></i> Loading...</div>
+	                              </button>
+	                              <ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">12am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">1am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">2am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">3am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">4am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">5am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">6am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">7am</li>
+	                                 <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">8am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">9am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">10am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">11am</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">12pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">1pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">2pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">3pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">4pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">5pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">6pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">7pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">8pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">9pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">10pm</li>
+	                                <li ng-repeat="sleep in account.sleep_hours" ng-click="ctrl.changeSetting(sleep.utc)" class="ng-binding ng-scope" role="button" tabindex="0">11pm</li>
+	                                </ul>--->
+									<select class="form-control sleep_time">
+										<option value="12am" {% if getSetting.sleep_start_time == '12am'  %} selected {% endif %}>12am</option>
+										<option value="1am" {% if getSetting.sleep_start_time == '1am'  %} selected {% endif %}>1am</option>
+										<option value="2am" {% if getSetting.sleep_start_time == '2am'  %} selected {% endif %}>2am</option>
+										<option value="3am" {% if getSetting.sleep_start_time == '3am'  %} selected {% endif %}>3am</option>
+										<option value="4am" {% if getSetting.sleep_start_time == '4am'  %} selected {% endif %}>4am</option>
+										<option value="5am" {% if getSetting.sleep_start_time == '5am'  %} selected {% endif %}>5am</option>
+										<option value="6am" {% if getSetting.sleep_start_time == '6am'  %} selected {% endif %}>6am</option>
+										<option value="7am" {% if getSetting.sleep_start_time == '7am'  %} selected {% endif %}>7am</option>
+										<option value="8am" {% if getSetting.sleep_start_time == '8am'  %} selected {% endif %}>8am</option>
+										<option value="9am" {% if getSetting.sleep_start_time == '9am'  %} selected {% endif %}>9am</option>
+										<option value="10am" {% if getSetting.sleep_start_time == '10am'  %} selected {% endif %}>10am</option>
+										<option value="11am" {% if getSetting.sleep_start_time == '11am'  %} selected {% endif %}>11am</option>
+										<option value="12pm" {% if getSetting.sleep_start_time == '12pm'  %} selected {% endif %}>12pm</option>
+										<option value="1pm" {% if getSetting.sleep_start_time == '1pm'  %} selected {% endif %}>1pm</option>
+										<option value="2pm" {% if getSetting.sleep_start_time == '2pm'  %} selected {% endif %}>2pm</option>
+										<option value="3pm" {% if getSetting.sleep_start_time == '3pm'  %} selected {% endif %}>3pm</option>
+										<option value="4pm" {% if getSetting.sleep_start_time == '4pm'  %} selected {% endif %}>4pm</option>
+										<option value="5pm" {% if getSetting.sleep_start_time == '5pm'  %} selected {% endif %}>5pm</option>
+										<option value="6pm" {% if getSetting.sleep_start_time == '6pm'  %} selected {% endif %}>6pm</option>
+										<option value="7pm" {% if getSetting.sleep_start_time == '7pm'  %} selected {% endif %}>7pm</option>
+										<option value="8pm" {% if getSetting.sleep_start_time == '8pm'  %} selected {% endif %}>8pm</option>
+										<option value="9pm" {% if getSetting.sleep_start_time == '9pm'  %} selected {% endif %}>9pm</option>
+										<option value="10pm" {% if getSetting.sleep_start_time == '10pm'  %} selected {% endif %}>10pm</option>
+										<option value="11pm" {% if getSetting.sleep_start_time == '11pm'  %} selected {% endif %}>11pm</option>
+
+									</select>
+
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+	                        <div class="general-dashboard-boxes">
+	                            <h3>Duration</h3>
+	                            <p>How long do you want to rest your account for?<br/>
+	                                <i>&nbsp</i>
+	                            </p>
+	                            <h5>&nbsp</h5>
+	                            <div class="card-input dropdown">
+	                              <!---<button id="follow-limit" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="ctrl.loading">
+	                                <div ng-show="!ctrl.loading" class="ng-binding" aria-hidden="false" style="">2 hour <span class="caret"></span></div>
+	                              <div class="loading ng-binding ng-hide" ng-show="ctrl.loading" aria-hidden="true" style=""><i class="fa fa-spin fa-refresh"></i> Loading...</div>
+	                              </button>
+	                                <ul class="dropdown-menu" aria-labelledby="follow-limit">
+	                                    <li ng-click="ctrl.changeSetting(1)" class="ng-binding" role="button" tabindex="0">1 hour</li>
+	                                    <li ng-click="ctrl.changeSetting(2)" class="ng-binding" role="button" tabindex="0">2 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(3)" class="ng-binding" role="button" tabindex="0">3 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(4)" class="ng-binding" role="button" tabindex="0">4 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(5)" class="ng-binding" role="button" tabindex="0">5 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(6)" class="ng-binding" role="button" tabindex="0">6 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(7)" class="ng-binding" role="button" tabindex="0">7 hours</li>
+	                                    <li ng-click="ctrl.changeSetting(8)" class="ng-binding" role="button" tabindex="0">8 hours</li>
+	                                </ul> --->
+									<select class="form-control sleep_duration">
+										<option value="1 hour" {% if getSetting.sleep_duration == '1 hour'  %} selected {% endif %}>1 hour</option>
+										<option value="2 hour" {% if getSetting.sleep_duration == '2 hour'  %} selected {% endif %}>2 hour</option>
+										<option value="3 hour" {% if getSetting.sleep_duration == '3 hour'  %} selected {% endif %}>3 hour</option>
+										<option value="4 hour" {% if getSetting.sleep_duration == '4 hour'  %} selected {% endif %}>4 hour</option>
+										<option value="5 hour" {% if getSetting.sleep_duration == '5 hour'  %} selected {% endif %}>5 hour</option>
+										<option value="6 hour" {% if getSetting.sleep_duration == '6 hour'  %} selected {% endif %}>6 hour</option>
+										<option value="7 hour" {% if getSetting.sleep_duration == '7 hour'  %} selected {% endif %}>7 hour</option>
+										<option value="8 hour" {% if getSetting.sleep_duration == '8 hour'  %} selected {% endif %}>8 hour</option>
+									</select>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!--- Sleep Section End Here ------>
+
+
+	    </div>
+	</div>
+	<!-- General Section start Here -->
+</div>
+
+<!--FOOTER -->
+<footer>
+<span>© 2018, All Right Reserved</span>
+</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/selectFx.js"></script>
+<script src="js/custom.js"></script>
+<script type="text/javascript">
+
+</script>
+<script>
+	(function() {
+		[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+			new SelectFx(el);
+		} );
+	})();
+
+  // $("#one").click(function(e) {
+  //               $(this).addClass("fcurrent");
+  //  });
+  $('#userdetail').hover(
+       function(){ $(this).addClass('userdetailBox') },
+       function(){ $(this).removeClass('userdetailBox') }
+   )
+</script>
+
+<script>
+    //Range Slider Start Here 
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+
+
+</script>
+
+<!--/FOOTER -->
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/target.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+{% endblock %}

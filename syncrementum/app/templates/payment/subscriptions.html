@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="content">
+<h1 class="fristheader">Subscriptions</h1>
+<div class="table-responsive">
+<table class="table table-bordered accountTable table-hover">
+<thead>
+<tr>
+<td class="text-center">Name</td>
+<td class="text-center">Price</td>
+<td class="text-center">Status</td>
+<td class="text-center"></td>
+</tr>
+</thead>
+<tbody>
+{% for plan in plans %}
+<tr class="dark-row">
+<td class="text-center">{{ plan.subscription_name }}</td>
+<td class="text-center">{{ plan.subscription_price }}</td>
+<td class="text-center">
+  {% if plan.status %}
+    Active
+  {% else %}
+    Inactive
+  {% endif %}</td>
+
+<td class="text-center">{% if not plan.status %}<a href="{{url_for('paymentbp.activate_plan', id=plan.subscription_id)}}">Activate</a>  {% endif %}</td>
+
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

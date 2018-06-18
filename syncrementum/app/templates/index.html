@@ -1,0 +1,195 @@
+  {% extends "home_layout.html" %}
+  {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+
+  <div class="clearboth"></div>
+  <div class="container-fluid banner-section">
+
+<div class="container">
+    <div class="row ">
+
+         <div class="col-md-2 col-sm-6 col-xs-12  ">
+
+        <img src="{{url_for('static',filename = 'images/home/banner_mob.png')}}" class="img-responsive right_phone" />
+      </div>
+
+      <div class="col-md-9 col-md-offset-1 col-sm-6 col-xs-12 ">
+
+
+<h1 class="exposure_text">Increase your exposure and connect with new customers on Instagram.</h1>
+<p class="exposure_p">Maximize your Instagram marketing by using Sync4Life to get real organic engagement and convert your followers to real customers.</p>
+<a href="{{ url_for('userbp.user_signup') }}" class="trial">
+<button class="exposure_btn">Register Now</button>
+</a>
+       <div class="clearboth"></div>
+
+
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+  </div>
+
+   <div class="container-fluid bg_white">
+<h1>WHO USES Sync4Life?</h1>
+
+  </div>
+
+  <div class="container-fluid fitness">
+      <div class="container">
+<h1>Business Professionals</h1>
+      <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/bus_pro_1.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/bus_pro_2.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/bus_pro_3.png')}}" class="img-responsive" />
+          </div>
+      </div>
+
+  </div>
+
+  <div class="container-fluid ecomerce">
+
+<div class="container">
+<h1>Sports</h1>
+      <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/sports_1.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/sports_2.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/sports_3.png')}}" class="img-responsive" />
+          </div>
+      </div>
+  </div>
+
+
+  <div class="container-fluid food">
+<div class="container">
+<h1>Bloggers</h1>
+      <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/blogger_1.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/blogger_2.png')}}" class="img-responsive" />
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <img src="{{url_for('static',filename = 'images/home/blogger_3.png')}}" class="img-responsive" />
+          </div>
+      </div>
+  </div>
+
+  </div>
+  </div>
+
+<div class="container-fluid">
+      <div class="container">
+
+          <div class="row block_follow">
+              <div class="col-md-4 col-sm-4 col-xs-12 follower_block">
+                  <img src="{{url_for('static',filename = 'images/home/icon_new_follower.png')}}" class="img-responsive center-block" />
+                  <h2>Attract New Follower</h2>
+                  <p>Sync4Life attracts new followers to your Instagram account.
+                      This leads to thousands of new people following and interacting with your profile.</p>
+              </div>
+
+
+               <div class="col-md-4 col-sm-4 col-xs-12 follower_block">
+                  <img src="{{url_for('static',filename = 'images/home/icon_drive_site_trafic.png')}}" class="img-responsive center-block" />
+                  <h2>Attract New Follower</h2>
+                  <p>Sync4Life attracts new followers to your Instagram account.
+                      This leads to thousands of new people following and interacting with your profile.</p>
+              </div>
+
+               <div class="col-md-4 col-sm-4 col-xs-12 follower_block">
+                  <img src="{{url_for('static',filename = 'images/home/icon_new_follower.png')}}" class="img-responsive center-block" />
+                  <h2>Attract New Follower</h2>
+                  <p>Sync4Life attracts new followers to your Instagram account.
+                      This leads to thousands of new people following and interacting with your profile.</p>
+              </div>
+
+
+          </div>
+
+</div>
+      </div>
+
+
+ <!--
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-6 col-sm-6 col-xs-12 flowers">
+
+<img src="{{url_for('static',filename = 'images/home/icon-more-followers.png')}}" class="img-responsive icon_center" />
+        <h1>Attract New Followers.</h1>
+        <p>Stim attracts new followers to your Instagram account.
+          This leads to thousands of new people following and interacting
+          with your profile.</p>
+
+      </div>
+
+
+      <div class="col-md-6 col-sm-6 col-xs-12 drive">
+
+<img src="{{url_for('static',filename = 'images/home/icon-mouse.png')}}" class="img-responsive icon_center" />
+        <h1>Drive Site Traffic.</h1>
+        <p>Get more visitors to your website by driving new followers
+          to the link in your Instagram bio.</p>
+
+      </div>
+
+
+      <div class="col-md-6 col-sm-6 col-xs-12 drive">
+
+<img src="{{url_for('static',filename = 'images/home/icon-megaphone.png')}}" class="img-responsive icon_center" />
+        <h1>Build Your Influence.</h1>
+        <p>Land sponsorships and make yourself more marketable by gaining more followers.</p>
+
+      </div>
+
+ <div class="col-md-6 col-sm-6 col-xs-12 flowers">
+
+<img src="{{url_for('static',filename = 'images/home/icon-more-followers.png')}}" class="img-responsive icon_center" />
+        <h1>Attract New Followers.</h1>
+        <p>Stim attracts new followers to your Instagram account.
+          This leads to thousands of new people following and interacting
+          with your profile.</p>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+
+-->
+
+
+
+{% endblock %}

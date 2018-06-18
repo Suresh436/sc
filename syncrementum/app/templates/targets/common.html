@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<div class="container-fluid">
+        <!-- start white-section -->
+        <div class="white-section form-group ">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                      <li class="{% if account_class %}{{ account_class }}{% endif %}"><a href="/targets{% if get_uid is not none %}?userid={{get_uid}}{% endif%}">Account Targets</a></li>
+                      <li class="{% if location_class %}{{ location_class }}{% endif %}"><a href="/targets/location_target{% if get_uid is not none %}?userid={{get_uid}}{% endif%}">Location Targets</a></li>
+                      <li class="{% if hash_class %}{{ hash_class }}{% endif %}"><a href="/targets/hash_target{% if get_uid is not none %}?userid={{get_uid}}{% endif%}">Hash Targets</a></li>
+                    </ul>
+                   <div class="account-desc target-content">Add quality accounts with similar interests that have a lot of commenters, likers, and followers. Sync4Life will grow your followers by following people engaged with these accounts.<span>Max limit: 100</span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-9">
+                    <div class="icon-addon addon-lg">
+                        <i for="email" class="fa fa-search"></i>
+                        <input type="text" get_page="{{get_page}}"
+                               class="search-target-input"
+                               placeholder="Search..." id="{{input_id}}">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0);" class="btn btn-primary hvr-shutter-out-horizontal reset_btn" onclick="launch_target();" >{{btn_content}}
+                    </a>
+                </div>
+            </div>
+            <div class="row insta-profiles">
+                <div></div>
+            </div>
+        </div>
+        <!-- end white-section -->
+    </div>
+<div class="clearfix"></div>
+<div class="col-md-3 account-targets-section">
+</div>
+<div class="container-fluid">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+		<div class="form-group">
+            <div class="icon-addon addon-lg">
+                <i for="email" class="fa fa-search"></i>
+                <input type="text" class="filter-target" func="{{get_page}}" placeholder="Filter Accounts" id="filter">
+            </div>
+
+        </div>
+        <div class="row target-data">
+             {{ qry_template|safe }}
+
+        </div>
+    </div>
+	<!-- end white-section -->
+</div>
+<!--FOOTER -->
+<div id="direct-message-modal" class="modal fade model-form" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="followers-section">
+                    <h2>Send Message</h2>
+                    <input type="hidden" id="insta_id" value = "" />
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 search-btn">
+                            <textarea id="msg-box" class="form-control msg-box" placeholder="Enter Message" name="search">{{message}}
+                            </textarea>
+
+
+                       </div>
+
+                    </div>
+
+                </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center search-sbt-btn">
+                        <button type="button" onclick="send_message()"
+                                class="btn btn-default hvr-shutter-out-vertical send-msg-btn">
+                         Send Message
+                     </button>
+
+                    </div>
+                <textarea id="msg-content" class="hidden" name="search">{{ message }}
+                            </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+  <footer>
+    <span>© 2018, All Right Reserved</span>
+  </footer>
+<!--/FOOTER -->
+<script>
+    {% if get_uid is not none %}
+        dashboard_url = '/user/dashboard?userid={{get_uid}}';
+        search_user_url = '/user/search_users?userid={{get_uid}}';
+        search_location_url = '/user/search_location?userid={{get_uid}}';
+        search_hashtag_url = '/user/search_hash?userid={{get_uid}}';
+        exists_url = '/user/lets-insta/?userid={{get_uid}}';
+        adduid = '?userid={{get_uid}}';
+        addquid = '&userid={{get_uid}}';
+        at_url = '/targets?userid={{get_uid}}'
+        lt_url = '/targets/location_target?userid={{get_uid}}'
+        ht_url = '/targets/hash_target?userid={{get_uid}}';
+        launch_target_url = '/user/launch_target?userid={{get_uid}}';
+     {% else %}
+        url ='/user/instalogin';
+        dashboard_url = '/user/dashboard';
+        search_user_url = '/user/search_users';
+        search_location_url = '/user/search_location';
+        search_hashtag_url = '/user/search_hash';
+        exists_url = '/user/lets-insta/';
+        adduid = '';
+        at_url = '/targets';
+        lt_url = '/targets/location_target';
+        ht_url = '/targets/hash_target';
+        addquid = '';
+        launch_target_url = '/user/launch_target';
+
+     {% endif %}
+</script>
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/target.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+{% endblock %}

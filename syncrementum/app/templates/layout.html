@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sync4Life</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800"
+          rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/font-awesome.css') }}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/cs-select.css') }}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/cs-skin-elastic.css') }}"
+          rel="stylesheet" type="text/css"/>
+
+    <link href="{{ url_for('static', filename='css/style.css') }}"
+          rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" media="only all and (min-width: 768px)"
+          href="{{ url_for('static', filename='css/768.css') }}">
+    <link rel="stylesheet" media="only all and (min-width: 1200px)"
+          href="{{ url_for('static', filename='css/1200.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mask.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</head>
+{% import "macros.html" as m %}
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% if current_user.user_type == 'admin' and get_uid is not none %}
+            <a href="{{url_for('userbp.dashboard')}}" style="right:300px;top:25px;position:absolute;">Back to Admin</a>
+            {% endif %}
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Sync4Life"/>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                    <li {% if action=="dashboard" %} class="active"{% endif %} ><a href="/user/dashboard{% if get_uid is not none %}?userid={{get_uid}}{% endif %}">Dashboards</a></li>
+                <li {% if action=="targets" %} class="active"{% endif %}><a href="/targets{% if get_uid is not none %}?userid={{get_uid}}{% endif%}">Targets</a></li>
+                {% if current_user.user_type == 'admin' and get_uid is none %}
+                <li {% if action=="customer" %} class="active"{% endif %}><a href="/user/customers">Customers</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="user" id="userdetail">
+                    <a href="#">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i> <span>{{user_details.first_name}} {{user_details.last_name}}</span>
+                    </a>
+
+                </li>
+                <li class="add">
+                    <a href="#">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </a>
+                    <ul class="acccount-menu">
+                        <li><a href="{{url_for('userbp.profile')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                         <li><a href="{{url_for('paymentbp.my_account')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}"><i class="fa fa-user"></i> <span>My Account</span></a></li>
+                        <li><a href="{{url_for('settingsbp.direct_message')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}"><i class="fa fa-power-off"></i> <span>Settings</span></a></li>
+                        <li><a href="{{url_for('userbp.sign_out')}}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!-- Message flashing -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message|safe }}
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+
+
+</body>
+</html>

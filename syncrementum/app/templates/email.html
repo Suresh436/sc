@@ -1,0 +1,18 @@
+<html>
+<body>
+ <div class="col-md-8 col-sm-offset-3 signup-form">
+        <h3><strong>Two Factor Authentication Warning</strong></h3>
+        <h5>{{msg}}</h5>
+        <div class="btn-section-twofactor">
+     <h4><strong>Steps to disable Two Factor Authentication</strong></h4>
+     <ul>
+         <li>1. Go to your instagram profile and tap  <img src="{{url_for('static', filename='images/ios-opt.png', _external=true)}}"> (Android) or <img src="{{url_for('static', filename='images/android-opt.jpg', _external=true)}}"> (IOS) in the top-right corner</li>
+         <li>2. Scroll down and tap Two-Factor Authentication</li>
+         <li>3. Tap <img src="{{url_for('static', filename='images/two_step.png', _external=true)}}" alt="">Require Security Code to move to the off position</li>
+         <li>4. Then tap Turn Off at the bottom of the message that appears</li>
+     </ul>
+            <img src="{{url_for('static', filename='images/two-factor.jpg', _external=true)}}" class="two-factor-image" >
+        </div>
+ </div>
+</body>
+</html>

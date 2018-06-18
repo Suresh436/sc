@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6 myLastcol">
+            <div class="white-section form-group">
+                <div class="round"><span><i class="fa fa-check-circle"
+                                            aria-hidden="true"></i></span></div>
+                <h5 class="headdingText">Signup for this Plan</h5>
+
+                <div class="row">
+                    <div class="col-sm-12 description">
+                        <h4 class=""><strong>Description</strong></h4>
+                        <p>This is monthly recurring payment plan.</p>
+                        <p>Your account will be deducted monthly for the
+                            payment. </p>
+                    </div>
+                </div>
+
+                <!-- <div class="forBorder"></div>-->
+                <div class="footer_text_area">
+                    <div class="for_icon">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </div>
+                    <div class="left_side_area">
+                        <span><strong>{{ plan.subscription_name }}</strong></span>
+                        <span>{{ plan.subscription_details }}</span>
+                    </div>
+                    <div class="right_side_area">
+                        <span><strong> ${{ '%0.2f'| format(plan.subscription_price|float) }}</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 myLastcol paymentInfo">
+            <div class="white-section form-group">
+                <div class="round"><span><i class="fa fa-money"
+                                            aria-hidden="true"></i></span></div>
+                <h5 class="headdingText">Payment Options</h5>
+                <div class="footer_text_area displayInline"><p class="orClass">
+                    1</p></div>
+                <div class="footer_text_area displayInline fullBtn">
+                    <a href="{{paypalaction}}"
+                       class="forPayBtn myBtnNeww btn btn-primary"><i
+                            class="fa fa-paypal" aria-hidden="true"></i>Use
+                        PayPal</a>
+                </div>
+
+                {% if current_user.user_type == 'admin' %}
+                <div class="footer_text_area displayInline"><p class="orClass">
+                    2</p></div>
+                        <div class="footer_text_area displayInline fullBtn">
+                            {% if get_uid is not none %}
+                            <a href="{{url_for('paymentbp.free_subscription', uid=get_uid)}}"
+                               class="forPayBtn myBtnNeww btn btn-primary"
+                               onclick="return confirm('Are you sure to make plan free for this user?');"
+                            ><i class="fa" aria-hidden="true"></i>Free</a>
+                            {% else %}
+                            <a href="{{url_for('paymentbp.free_subscription', uid=current_user.id)}}"
+                               class="btn btn-primary displayInline freeBtn"
+                               onclick="return confirm('Are you sure to make plan free for this user?');"><i
+                                    class="fa" aria-hidden="true"></i>Free</a>
+                            {% endif %}
+                        </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+<!--FOOTER -->
+<footer>
+    <div class="mainBorder"></div>
+    <span>© 2018, All Right Reserved</span>
+</footer>
+<!--/FOOTER -->
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/target.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script src="{{ url_for('static', filename='js/payment.js') }}"></script>
+
+
+{% endblock %}

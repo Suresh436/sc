@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container-fluid">
+    <!-- start white-section -->
+    <div class="white-section form-group ">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="form-group"><h2> My Account</h2>   </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#subscription">Subscription Info</a></li>
+                    {% if userinfo.payment_status == 1 %}
+                    <li><a data-toggle="tab" href="#order-history">Order History</a></li>
+                    {% endif %}
+                </ul>
+                <div class="tab-content">
+                    <div id="subscription" class="tab-pane fade in active row">
+                        <div class="col-sm-8 myLastcol paymentInfo">
+                            <div class="white-section form-group testPlan">
+                                <table class="table">
+                                    <tr>
+                                        <td><b>Subscription Plan Info:</b></td>
+                                        <td>{{plan.subscription_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Subscription Plan Amount:</b></td>
+                                        <td>${{ '%0.2f'| format(plan.subscription_price|float) }}</td>
+                                    </tr>
+                                    {% if userinfo.payment_status == 2 %}
+                                        <tr>
+                                        <td><b>Plan Agreement Mode:</b></td>
+                                        <td> Free</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td><b>Plan Agreement Mode:</b></td>
+                                        <td> {% if agreement is not none %}{{account_detail.PaymentDetail.payment_mode}}{% else %}You didn't subscribe the plan{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Next Payment Date:</b></td>
+                                        <td> {% if agreement is not none %} {{ agreement.agreement_details.next_billing_date|default("", True) }}{% else %}N/A {% endif %}</td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    {% if userinfo.payment_status == 1 %}
+                    <div id="order-history" class="tab-pane fade row">
+                        <div class="col-sm-12 myLastcol paymentInfo">
+                            <div class="white-section form-group testPlan">
+                                <div class="col-sm-12">
+                                    <div id="content">
+                                        <h2> Payment History</h2>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered accountTable table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <!--td class="text-center">Transaction ID</td-->
+                                                    <td class="text-center">Payment Date</td>
+                                                    <td class="text-center">Amount</td>
+                                                    <td class="text-center">Status</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for transaction in transactions %}
+                                                {% if transaction.status not in ["Created", 'Suspended', 'Canceled'] %}
+                                                <tr class="">
+                                                    <!--td class="text-center">{{transaction.transaction_id}}</td-->
+                                                    <td class="text-center">{{transaction.time_stamp}}</td>
+                                                    <td class="text-center">${{ transaction.amount.value }}</td>
+
+                                                    <td class="text-center">{{ transaction.status }}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end white-section -->
+
+
+<!--FOOTER -->
+<footer style="margin-top:10px;">
+    <div class="mainBorder"></div>
+    <span>© 2018, All Right Reserved</span>
+</footer>
+<!--/FOOTER -->
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/target.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+
+
+{% endblock %}

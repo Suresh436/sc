@@ -1,0 +1,38 @@
+python: can't open file 'myscript.py': [Errno 2] No such file or directory
+/var/www/syncrementum/venv/lib/python2.7/site-packages/sqlalchemy/sql/elements.py:4222: SAWarning: Textual SQL expression '' should be explicitly declared as text('') (this warning may be suppressed after 10 occurrences)
+  {"expr": util.ellipses_string(element)})
+/var/www/syncrementum/venv/lib/python2.7/site-packages/flask_debugtoolbar/__init__.py:214: UserWarning: Could not insert debug toolbar. </body> tag not found in response.
+  warnings.warn('Could not insert debug toolbar.'
+Fail to import moviepy. Need only for Video upload.
+Request return 429 error!
+{u'status': u'fail', u'message': u'Please wait a few minutes before you try again.'}
+Login success!
+
+Request return 429 error!
+{u'status': u'fail', u'message': u'Please wait a few minutes before you try again.'}
+Login success!
+
+Request return 429 error!
+{u'status': u'fail', u'message': u'Please wait a few minutes before you try again.'}
+Login success!
+
+Request return 429 error!
+{u'status': u'fail', u'message': u'Please wait a few minutes before you try again.'}
+Login success!
+
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+/var/www/syncrementum/venv/lib/python2.7/site-packages/flask_debugtoolbar/__init__.py:214: UserWarning: Could not insert debug toolbar. </body> tag not found in response.
+  warnings.warn('Could not insert debug toolbar.'
+Fail to import moviepy. Need only for Video upload.
+Fail to import moviepy. Need only for Video upload.
+Login success!
+
+Request return 429 error!
+{u'status': u'fail', u'message': u'Please wait a few minutes before you try again.'}
+Login success!
+

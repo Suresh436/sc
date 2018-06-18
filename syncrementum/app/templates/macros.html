@@ -1,0 +1,70 @@
+{# myapp/templates/macros.html #}
+
+<!--
+Render a WTForm form's field (with it's possible associated errors)
+from a WTForms form
+-->
+{% macro render_field(field) %}
+{{ field(name_=field.name, id=field.name, placeholder='', class_="field") }}
+{{field.label}}
+{% if field.errors %}
+
+<ul>
+    {% for error in field.errors %}
+    <li class="form-error">{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{% macro custom_render(ftype,field,align,label) %}
+<!--
+ftype is either field (standard) or field_inline
+-->
+{% if ftype == 'field_inline' %}
+<div class="{{ftype}} {{align}} right-margin-2">
+    <div class="table_row_plain">
+        {% if label == 'yes' %}
+        <div class="tbl_cell_plain">
+            {{ field.label }}
+        </div>
+        {% endif %}
+        <div class="tbl_cell_plain">
+            {{ field(name_=field.name, id=field.name,
+            placeholder=field.description, class_="field_inline") }}
+        </div>
+    </div>
+</div>
+{% elif ftype == 'field' %}
+<div class="table_row_plain">
+    {% if label == 'yes' %}
+    <div class="tbl_cell_plain">
+        {{ field.label }}
+    </div>
+    {% endif %}
+    <div class="tbl_cell_plain">
+        {{ field(name_=field.name, id=field.name, placeholder=field.description,
+        class_="field_inline") }}
+    </div>
+</div>
+{% endif %}
+{% if field.errors %}
+<ul>
+    {% for error in field.errors %}
+    <li class="form-error">{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{% macro field_render(field) %}
+{{ field(name_=field.name, id=field.name, class_="field") }}
+{% if field.errors %}
+
+<ul>
+    {% for error in field.errors %}
+    <li class="form-error">{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}

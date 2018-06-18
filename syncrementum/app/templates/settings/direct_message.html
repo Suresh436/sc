@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- start white-section -->
+    <div class="white-section form-group">
+        <form method="POST">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <label class=""><strong>Direct Message Content</strong></label>
+                    <p>Note: Please use {@username} to include username in message</p>
+                    <div class="input-field">
+                        {{ dform.csrf_token }}
+                        {{ m.field_render(dform.message) }}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="save" name="" class="btn btn-primary subBtn">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end white-section -->
+</div>
+<!--FOOTER -->
+<footer>
+    <span>© 2018, All Right Reserved</span>
+</footer>
+
+{% endblock %}

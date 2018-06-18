@@ -1,0 +1,22 @@
+{% extends "login_layout.html" %}
+  {% block content %}
+ <div class="col-md-8 col-sm-offset-3 signup-form">
+        <h3><strong>Two Factor Authentication Warning</strong></h3>
+        <h5>You have enabled Two Factor Authentication. For our service to work you need to disable two factor Authentication. Please follow steps below.</h5>
+        <div class="btn-section-twofactor">
+     <h4><strong>Steps to disable Two Factor Authentication</strong></h4>
+     <ul>
+         <li>1. Go to your instagram profile and tap  <img src="{{url_for('static', filename='images/ios-opt.png')}}"> (Android) or <img src="{{url_for('static', filename='images/android-opt.jpg')}}"> (IOS) in the top-right corner</li>
+         <li>2. Scroll down and tap Two-Factor Authentication</li>
+         <li>3. Tap <img src="{{url_for('static', filename='images/two_step.png')}}" alt="">Require Security Code to move to the off position</li>
+         <li>4. Then tap Turn Off at the bottom of the message that appears</li>
+     </ul>
+            <img src="{{url_for('static', filename='images/two-factor.jpg')}}" class="two-factor-image" >
+        </div>
+    <div class="btn-section-twofactor">
+        <a href="{{url_for('userbp.insta_signin', code_required='code_required')}}" class="myBtnNeww btn btn-primary">Continue With Verification Code</a>
+        <a href="{{url_for('userbp.insta_signin')}}" class="btn btn-primary right">Back</a>
+    </div>
+
+     </div>
+{% endblock %}

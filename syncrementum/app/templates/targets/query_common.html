@@ -1,0 +1,46 @@
+{% if getpage == 'profile' %}
+    {% for r in pf %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <ul class="account-user">
+                <li>
+                    {% if r.profile_image  %}
+                        <img src="{{r.profile_image}}" /></li>
+                    {% else %}
+                        <img src="{{url_for('static',filename='images/male-user.jpg')}}" /></li>
+                    {% endif %}
+                <li><a href="javascript:void(0);" class="send-message" insta-id = "{{r.insta_id}}"> <h4>{{r.user_name}}</h4></a></li>
+                <li onclick="return confirm('Are you sure to delete?')?delete_target({{r.id}}, 0):false;"><i class="fa fa-times"></i></li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if getpage == 'location' %}
+
+    {% for r in loc_targets %}
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <ul class="account-user">
+            <li>
+                <img src="{{url_for('static',filename='images/location.jpg')}}" /></li>
+            <li><h4>{{r.user_name}}</h4></li>
+            <li onclick="return confirm('Are you sure to delete?')?delete_target({{r.id}}, 1):false;"><i class="fa fa-times"></i></li>
+        </ul>
+    </div>
+    {% endfor %}
+
+{% endif %}
+
+
+{% if getpage == 'hashtag' %}
+
+{% for r in hash_targets %}
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <ul class="account-user">
+            <li>
+                <img src="{{url_for('static',filename='images/hashtag.jpg')}}" /></li>
+            <li><h4>{{r.user_name}}</h4></li>
+            <li onclick="return confirm('Are you sure to delete?')?delete_target({{r.id}}, 2):false;"><i class="fa fa-times"></i></li>
+        </ul>
+    </div>
+    {% endfor %}
+
+{% endif %}

@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+
+<div class="col-md-3 tools-section">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+		<h1 class="section-heading">Import Files</h1>
+        <p class="account-desc">Use the template file below to import Instagram users into the various lists.</p>
+        <div class="form-group">
+             <a href="#" class="btn btn-primary hvr-shutter-out-horizontal reset_btn">Download Example</a>
+       </div>
+       </div>
+    </div>
+	<!-- end white-section -->
+</div>
+<div class="col-md-9 p-l-5 tools-section">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+               <h4 class="tools-section-title">Import Accounts To Follow</h4>
+                <form name="csv_form" id="csvform" method="post" enctype="multipart/form-data">
+                    <input type="file"  name="csv_file" /><span>Click</span> or Drop Files Here</div>
+                    <input type="submit" class="btn btn-info" value="ImportCsv">
+                </form>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+               <h4 class="tools-section-title">Import Accounts To Follow</h4>
+               <div dropzone class="ng-binding"><span>Click</span> or Drop Files Here</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+               <h4 class="tools-section-title">Import Accounts To Follow</h4>
+               <div dropzone class="ng-binding"><span>Click</span> or Drop Files Here</div>
+            </div>
+        </div>
+    </div>
+	<!-- end white-section -->
+</div>
+
+<!--FOOTER -->
+<footer>
+<span>© 2018, All Right Reserved</span>
+</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/selectFx.js"></script>
+<script src="js/custom.js"></script>
+<script type="text/javascript">
+
+</script>
+<script>
+    $("#csvform").on('submit', function(e){
+        //alert('submit intercepted');
+        e.preventDefault();
+        //console.log('form submitted');
+        //$('#import_btn').show();
+        //var formData = new FormData(document.getElementsByName('csv_form')[0]);
+        //console.log(formData);
+        $.ajax({
+            url:'upload_csv',
+            data: $("#csvform").serialize(),
+            contentType: "application/x-www-form-urlencoded",
+            type:'POST',
+            success: function (res){
+                console.log(res);
+                if(res.status == 'success'){
+                    $('.alert-notification').append("<div class='alert alert-success alert-dismissible login-alert'><a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a>Setting updated successfully.</div>");
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                }else{
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                }
+            }
+        });
+    });
+</script>
+<script>
+	(function() {
+		[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+			new SelectFx(el);
+		} );
+	})();
+
+  // $("#one").click(function(e) {
+  //               $(this).addClass("fcurrent");
+  //  });
+  $('#userdetail').hover(
+       function(){ $(this).addClass('userdetailBox') },
+       function(){ $(this).removeClass('userdetailBox') }
+   )
+</script>
+
+<script>
+    //Range Slider Start Here
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+
+
+</script>
+
+<!--/FOOTER -->
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/target.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="white-section form-group profile-detail">
+
+                <div class="row form-group border-bottom">
+                    <div class="col-sm-12">
+                        <h3>Profile Detail <a href="{{url_for('userbp.edit_profile')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}" class="btn btn-sm btn-primary pull-right">Edit</a></h3>
+                    </div>
+
+                </div>
+
+
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Name</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.first_name}} {{user_detail.last_name}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Email</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.email}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Phone</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.phone}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Address1</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.address1}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Address2</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.address2}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">City</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.city}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">State</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.state}}</label>
+                </div>
+                <div class="row form-group border-all">
+                    <label class="col-sm-4">Zipcode</label>
+                    <label class="valueLabel col-sm-8">{{user_detail.zipcode}}</label>
+                </div>
+
+
+        </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="white-section">
+            <div class="round"><span><i class="fa fa-window-close-o" aria-hidden="true"></i></span></div>
+            <h5 class="headdingText">Account Cancellation</h5>
+            <div class="footer_text_area">
+                <p class="accountText">
+            Warning! Cancelling will remove this Instagram account from sync4life and will cancel any recurring charges for this account.</p>
+            <a class="forPayBtn btn btn-danger" href="{{url_for('paymentbp.cancel_current_plan')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}" onclick="return confirm('Are you sure to cancel the plan? It will stop all the services.')"><i class="fa fa-trash-o" aria-hidden="true"></i> Cancel Account</a>
+
+        </div>
+
+        <div class="footer_text_area ">
+                <p class="accountText">
+            If you would prefer to leave your account in Sync4life but cancel any recurring charges for this account, please chat with us.</p>
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!--FOOTER -->
+
+
+
+  <footer>
+      <div class="mainBorder"></div>
+    <span>© 2018, All Right Reserved</span>
+  </footer>
+
+{% endblock %}

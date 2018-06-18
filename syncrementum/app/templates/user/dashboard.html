@@ -1,0 +1,389 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auto-complete.css') }}">
+
+<div class="flexBox">
+    <div class="col-md-3 flexBox">
+        <!-- start white-section -->
+        <div class="white-section form-group">
+            <h1 class="section-heading">Account Growth</h1>
+            <ul class="account-growth">
+                <li class="blue">
+                    <h2>{{initf}}</h2>
+                    <span>Followers on {{crdate}}</span>
+                </li>
+                <li class="yellow">
+                    <h2>{{currf}}</h2>
+                    <span>Followers as of Today</span>
+                </li>
+                <li class="green">
+                    <h2>{{diff}}</h2>
+                    <span>Total New Followers</span>
+                </li>
+            </ul>
+        </div>
+        <!-- end white-section -->
+    </div>
+    <div class="col-md-9 p-l-5 flexBox">
+        <!-- start white-section -->
+        <div class="white-section form-group">
+            <h1 class="section-heading mb-26">
+                <div class="col-md-2 pull-right">
+                    <label class="custom-label">
+                        Followback Ratio <i class="fa fa-angle-down"></i>
+                    </label>
+                    <select class="cs-select cs-skin-elastic">
+                        <option value="" disabled selected>7.4% (Current)</option>
+                        <option value="">5%</option>
+                        <option value="">7.4% (Current)</option>
+                        <option value="">10%</option>
+                        <option value="">15%</option>
+                    </select>
+                </div>
+                <div class="col-md-2 pull-right">
+                    <label class="custom-label">
+                        Plan <i class="fa fa-angle-down"></i>
+                    </label>
+                    <select class="cs-select cs-skin-elastic">
+                        <option value="" disabled selected>Fast (Current)</option>
+                        <option value="">Fast (Current)</option>
+                        <option value="">Turbo</option>
+                        <option value="">Extreme / Pro</option>
+                    </select>
+                </div>
+                Calculate Your Growth
+                <div class="clearfix"></div>
+            </h1>
+            <img src="{{ url_for('static', filename='images/graph.jpg') }}" alt="" class="img-responsive">
+            <!--div id="chartContainer" style="height: 300px; width: 100%;"></div-->
+        </div>
+        <!-- end white-section -->
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<div class="flexBox">
+    <div class="col-md-3 flexBox">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+    	<h1 class="section-heading">Account Status</h1>
+        <!--<table class="table account-status">-->
+        	<!--<thead>-->
+            	<!--<tr>-->
+                    <!--<td>-->
+                        <!--<strong>Currently</strong> <span>Following - Delayed (<a href="#">why?</a>)</span>-->
+                    <!--</td>-->
+                    <!--<td align="right">-->
+                        <!--<a href="#" class="play-ico"><i class="fa fa-play"></i></a>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<strong>Follow</strong> <span>Fast (<a href="#">Change</a>)</span>-->
+                    <!--</td>-->
+                    <!--<td align="right">-->
+                        <!--<span class="count">306</span>-->
+                        <!--<label class="switch">-->
+                          <!--<input type="checkbox">-->
+                          <!--<span class="slider round"></span>-->
+                        <!--</label>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<strong>Unfollow</strong> <span>Fast (<a href="#">Change</a>)</span>-->
+                    <!--</td>-->
+                    <!--<td align="right" valign="middle">-->
+                        <!--<span class="count">0</span>-->
+                        <!--<label class="switch">-->
+                          <!--<input type="checkbox">-->
+                          <!--<span class="slider round"></span>-->
+                        <!--</label>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<strong>Engagement Like <i class="fa fa-question-circle"></i> </strong> <span>Fast (<a href="#">Change</a>)</span>-->
+                    <!--</td>-->
+                    <!--<td align="right">-->
+                        <!--<label class="switch">-->
+                          <!--<input type="checkbox">-->
+                          <!--<span class="slider round"></span>-->
+                        <!--</label>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</thead>-->
+        <!--</table>-->
+
+        <ul class="account-growth">
+        	<li class="blue">
+            	<h2>{{post}}</h2>
+                <span>Post</span>
+            </li>
+            <li class="yellow">
+            	<h2>{{currf}}</h2>
+                <span>Followers</span>
+            </li>
+            <li class="green">
+            	<h2>{{curfoll}}</h2>
+                <span>Following</span>
+            </li>
+            <li class="blue">
+                <h2>Account Profile</h2>
+            </li>
+        </ul>
+
+
+
+
+    </div>
+	<!-- end white-section -->
+</div>
+    <div class="col-md-9 p-l-5 flexBox">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+    	<h1 class="section-heading">Best Profile Account Targets</h1>
+      <div class="form-group">
+        <table class="table table-striped account-target">
+        	<thead>
+                <tr>
+                    <th></th>
+                    <th align="center" class="text-center">Actions</th>
+                    <th align="center" class="text-center">Followbacks</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for r in best_accounts %}
+                <tr>
+                    <td>{{r.user_name}}</td>
+                    <td align="center"><strong>{{r.actions}}</strong></td>
+                    <td align="center"><strong>{{r.followbacks}}</strong></td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+      </div>
+
+        <div class="text-right form-group">
+        	<a href="{{url_for('targetsbp.profile_target')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}" class="btn btn-primary">View All</a>
+        </div>
+    </div>
+	<!-- end white-section -->
+</div>
+</div>
+
+
+<div class="clearfix"></div>
+<div class="col-md-6">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+    	<h1 class="section-heading">Best Location Account Targets</h1>
+      <div class="form-group">
+        <table class="table table-striped account-target">
+        	<thead>
+                <tr>
+                    <th></th>
+                    <th align="center" class="text-center">Actions</th>
+                    <th align="center" class="text-center">Followbacks</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in location_accounts %}
+                <tr>
+                    <td>{{r.user_name}}</td>
+                    <td align="center"><strong>{{r.actions}}</strong></td>
+                    <td align="center"><strong>{{r.followbacks}}</strong></td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+      </div>
+
+        <div class="text-right form-group">
+        	<a href="{{url_for('targetsbp.location_target')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}" class="btn btn-primary">View All</a>
+        </div>
+    </div>
+	<!-- end white-section -->
+</div>
+<div class="col-md-6">
+	<!-- start white-section -->
+	<div class="white-section form-group">
+    	<h1 class="section-heading">Best Hashtag Account Targets</h1>
+      <div class="form-group">
+        <table class="table table-striped account-target">
+        	<thead>
+                <tr>
+                    <th></th>
+                    <th align="center" class="text-center">Actions</th>
+                    <th align="center" class="text-center">Followbacks</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in hash_accounts %}
+                <tr>
+                    <td>{{r.user_name}}</td>
+                    <td align="center"><strong>{{r.actions}}</strong></td>
+                    <td align="center"><strong>{{r.followbacks}}</strong></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+      </div>
+
+        <div class="text-right form-group">
+        	<a href="{{url_for('targetsbp.hash_target')}}{% if get_uid is not none %}?userid={{get_uid}}{% endif%}" class="btn btn-primary">View All</a>
+        </div>
+    </div>
+	<!-- end white-section -->
+</div>
+
+<!--FOOTER -->
+  <footer>
+    <span>© 2018, All Right Reserved</span>
+  </footer>
+<!--/FOOTER -->
+
+<!-- Modal Pop Start Here -->
+<div id="myModal" class="modal fade model-form" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;" >Your Target, We Find</h4>
+            </div>
+            <div class="userImgBox">
+                <div class="user-img"><img src="{{url_for('static',filename='images/male-user.jpg')}}" /></div>
+                <div class="user-content">
+                    <h4>Your target new follower by picking other instagram <span>accounts similar to yours.</span></h4>
+                    <p>Sync4Life will find new followers for you by <b>linking</b> post <br/>and <b>following/unfollowing</b>people who interact with these account</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="followers-section">
+                    <h2>Let's Start by Searching for your first accounts to go folowers <i>from</i> </h2>
+                    <ul id="folowers-tips">
+                        <li><h5>Pro Tips</h5></li>
+                        <li>1. There posts have likes and comments</li>
+                        <li>2. Their followers are similor to yours</li>
+                        <li>3. They have 2k-200k followers</li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search-btn">
+                            <div class="search-panel">
+                                <div class="input-group">
+                                  <input type="text" id="search-target-users" get_page="dashboard" class="form-control search-target-input" placeholder="Search Account" name="search">
+                                  <div class="input-group-btn">
+                                       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                  </div>
+                             </div>
+                             <div class="account-box">
+                                 <ul class="user-insta-profiles">
+                                    <li>No Target User</li>
+                                </ul>
+                             </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search-btn">
+                            <div class="search-panel">
+                            <div class="input-group">
+                                  <input type="text"
+                                         id="search-target-location" get_page="dashboard" class="form-control search-target-input" placeholder="Search Location" name="searchlocation">
+                                  <div class="input-group-btn">
+                                       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                  </div>
+                             </div>
+                             <div class="account-box">
+                                 <ul class="loc-insta-profiles">
+                                    <li>No Location</li>
+                                </ul>
+                             </div>
+                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search-btn">
+                            <div class="search-panel">
+                            <div class="input-group">
+                                  <input type="text" id="search-target-hash"
+                                         get_page="dashboard" class="form-control search-target-input" placeholder="Search Hashtag" name="searchhashtag">
+                                  <div class="input-group-btn">
+                                       <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                                  </div>
+                             </div>
+                             <div class="account-box">
+                                 <ul class="has-insta-profiles">
+                                    <li>No HashTag</li>
+                                </ul>
+                             </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="text-center search-sbt-btn">
+                        <button type="button" onclick="launch_target()" class="btn btn-default hvr-shutter-out-vertical">
+                        <span class="fa fa-location-arrow"></span> Launch
+                     </button>
+                     <p>(Add 4 accounts for Profile, Location and HashtTag to launch)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Modal Pop End Here -->
+
+<script src="{{ url_for('static', filename='js/classie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/selectFx.js') }}"></script>
+<script>
+	(function() {
+		[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+			new SelectFx(el);
+		} );
+	})();
+
+  // $("#one").click(function(e) {
+  //               $(this).addClass("fcurrent");
+  //  });
+  $('#userdetail').hover(
+       function(){ $(this).addClass('userdetailBox') },
+       function(){ $(this).removeClass('userdetailBox') }
+   )
+  {% if get_uid is not none %}
+        dashboard_url = '/user/dashboard?userid={{get_uid}}';
+        search_user_url = '/user/search_users?userid={{get_uid}}';
+        search_location_url = '/user/search_location?userid={{get_uid}}';
+        search_hashtag_url = '/user/search_hash?userid={{get_uid}}';
+        exists_url = '/user/lets-insta/?userid={{get_uid}}';
+        adduid = '?userid={{get_uid}}';
+        launch_target_url = '/user/launch_target?userid={{get_uid}}';
+     {% else %}
+        url ='/user/instalogin';
+        dashboard_url = '/user/dashboard';
+        search_user_url = '/user/search_users';
+        search_location_url = '/user/search_location';
+        search_hashtag_url = '/user/search_hash';
+        exists_url = '/user/lets-insta/';
+        adduid = '';
+        launch_target_url = '/user/launch_target';
+     {% endif %}
+</script>
+<script src="{{ url_for('static', filename='js/canvasjs.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auto-complete.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script>
+{% if user_details.saved_target_accounts != 1 %}
+    $('#myModal').modal('show');
+{% endif %}
+
+</script>
+
+{% endblock %}
